@@ -1,0 +1,188 @@
+openapi: 3.0.2
+info:
+  description: Return Horse Data
+  version: 0.0.1
+  title: Horse Database
+  
+paths:
+  /horse:
+    post:
+      tags:
+        - horse
+      summary:  add horse
+      requestBody:
+        description: "Horse object that needs to be added to the store"
+        required: true
+        content:
+          'application/json':
+              schema: 
+                $ref: '#/components/schemas/Horse'
+      responses:
+        '200':
+          description:  "OK"
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/Horse'
+        '400':
+          description:  "Bad Request"
+      
+  /horse/{horseId}:
+    get:
+      tags:
+        - horse
+      summary:  return horse 
+      parameters:
+        - name: horseId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description:  return horse
+          content:
+            'application/json':
+                schema:
+                  $ref: '#/components/schemas/Horse'
+        '404':
+          description:  not found horse
+  /race:
+    post:
+      tags:
+        - race
+      requestBody:
+        description: "Horse object that needs to be added to the store"
+        content:
+          'application/json':
+              schema: 
+                $ref: '#/components/schemas/RaceResult'
+      responses:
+        '200':
+          description:  "OK"
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/RaceResult'
+        '400':
+          description:  "Bad Request"
+       
+        
+  /race/{raceId}:
+    get:
+      tags:
+        - race
+      parameters:
+        - name: raceId
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+          description:  return horse
+          content:
+            'application/json':
+              schema: 
+                $ref: '#/components/schemas/RaceResult'
+                  
+          
+components:
+  schemas:
+    Horse:
+      type: object
+      properties:
+        id:
+          type: string
+          example:  "2017101835"
+        name:
+          type: string
+          example:  contrail
+        age:
+          type: integer
+          example:  3
+        sex:
+          type: string
+          example:  牡
+        trainer:
+          type: string
+          example:  "矢作 芳人"
+        owner:
+          type: string
+          example:  "前田晋二"
+        
+    RaceResult:
+      type: object
+      properties:
+        id:
+          type: string
+          example:  "202005021211"
+        name:
+          type: string
+          example:  "第87回東京優駿(G1)"
+        distance:
+          type: integer
+          example:  2400
+        course: 
+          type: string
+          example:  "東京競馬場" 
+        condition:
+          type: string
+          example:  "良"
+          
+        HorseRaceReults:
+          type: array
+          items:
+            properties:
+              arrival:
+                type: integer
+                example:  1
+              bracket Number:
+                description:  "枠番"
+                type: integer
+                example : 3
+              horse number:
+                description:  "馬番"
+                type: integer
+                example:  5
+              Horse:
+                $ref: '#/components/schemas/Horse'
+              weight:
+                description: "斤量"
+                type: number
+                example:  57
+              jockey:
+                description: "騎手"
+                type: string
+                example:  "福永祐一"
+              time:
+                type: string
+                example:  "2:24.1"
+              difference:
+                type: string
+                example:  "-"
+              pass:
+                type: string
+                example:  "3-3-5-4"
+              last3F:
+                type: number
+                example:  34.0
+              odds:
+                description:  "オッズ"
+                type: number
+                example:  1.4
+              order of Favarite Number:
+                description:  "人気"
+                type: integer
+                example:  1
+              horse weight:
+                description:  "馬体重"
+                type: string
+                example: "460(-2)"
+              
+          
+        
+        
+    
+    
+  
