@@ -26,19 +26,19 @@ type DB struct {
 	Connection *sql.DB
 }
 
-var d *DB
+var D *DB
 
 func configDB() *DB {
-	d = &DB{Host: getEnv("POSTGRES_HOST", "127.0.0.1"),
+	D = &DB{Host: getEnv("POSTGRES_HOST", "127.0.0.1"),
 		Port:     getEnv("POSTGRES_PORT", "5432"),
 		Username: getEnv("POSTGERS_USER", "postgres"),
 		Password: getEnv("POSTGRES_PASS", "postgres")}
-	dbinfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", d.Host, d.Port, d.Username, d.Password, d.DBName)
+	dbinfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", D.Host, D.Port, D.Username, D.Password, D.DBName)
 	db, err := sql.Open("postgres", dbinfo)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("Connection Faild: %s", dbinfo))
 		panic(err)
 	}
-	d.Connection = db
-	return d
+	D.Connection = db
+	return D
 }
