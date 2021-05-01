@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 	"github.com/lottotto/sample-api/db"
 	"github.com/lottotto/sample-api/model"
 )
