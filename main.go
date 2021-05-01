@@ -1,15 +1,22 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"net/http"
+
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/lottotto/sample-api/api"
+	"github.com/lottotto/sample-api/db"
 	// "go.elastic.co/apm/module/apmechov4"
 )
 
 func main() {
 
-	// Echo instance
+	_, err := db.ConfigDB()
+	if err != nil {
+		panic(err)
+	}
+
 	e := echo.New()
 
 	// Middleware
@@ -18,7 +25,13 @@ func main() {
 	// e.Use(apmechov4.Middleware())
 
 	// Routes
-	e.GET("/horses/:id", api.GetHorsebyID)
+	e.GET("/horse", api.GetHorsebyName)
+	e.GET("/horse/:id", api.GetHorsebyID)
+	e.GET("/race/:id", api.GetRaceByID)
+	e.GET("/hc", api.Healthcheck)
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "HELLO WORLD")
+	})
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

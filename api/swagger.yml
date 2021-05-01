@@ -26,7 +26,6 @@ paths:
                 $ref: '#/components/schemas/Horse'
         '400':
           description:  "Bad Request"
-      
   /horse/{horseId}:
     get:
       tags:
@@ -56,18 +55,16 @@ paths:
         content:
           'application/json':
               schema: 
-                $ref: '#/components/schemas/RaceResult'
+                $ref: '#/components/schemas/Race'
       responses:
         '200':
           description:  "OK"
           content:
             'application/json':
               schema: 
-                $ref: '#/components/schemas/RaceResult'
+                $ref: '#/components/schemas/Race'
         '400':
           description:  "Bad Request"
-       
-        
   /race/{raceId}:
     get:
       tags:
@@ -84,9 +81,52 @@ paths:
           content:
             'application/json':
               schema: 
-                $ref: '#/components/schemas/RaceResult'
-                  
-          
+                $ref: '#/components/schemas/Race'
+  /race/{raceId}/{horseId}:
+    get:
+      tags: 
+        - race
+      parameters:
+        - name: raceId
+          in: path
+          required: true
+          schema: 
+            type: string
+        - name: horseId
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+          description:  'OK'
+          content:
+            'application/json':
+                schema: 
+                  $ref: '#/components/schemas/HorseRaceReults'
+    post:
+      tags:
+        - race
+      parameters:
+        - name: raceId
+          in: path
+          required: true
+          schema: 
+            type: string
+        - name: horseId
+          in: path
+          required: true
+          schema: 
+            type: string
+      requestBody:
+        description:  "hogehoge"
+        content:
+          'application/json':
+            schema: 
+              $ref: '#/components/schemas/HorseRaceReults'
+      responses:
+        '200':
+          description:  return horse result
 components:
   schemas:
     Horse:
@@ -97,7 +137,7 @@ components:
           example:  "2017101835"
         name:
           type: string
-          example:  contrail
+          example:  "コントレイル"
         age:
           type: integer
           example:  3
@@ -110,14 +150,13 @@ components:
         owner:
           type: string
           example:  "前田晋二"
-        
-    RaceResult:
+    Race:
       type: object
       properties:
-        id:
+        id: 
           type: string
           example:  "202005021211"
-        name:
+        name: 
           type: string
           example:  "第87回東京優駿(G1)"
         distance:
@@ -129,60 +168,63 @@ components:
         condition:
           type: string
           example:  "良"
-          
-        HorseRaceReults:
-          type: array
-          items:
-            properties:
-              arrival:
-                type: integer
-                example:  1
-              bracket Number:
-                description:  "枠番"
-                type: integer
-                example : 3
-              horse number:
-                description:  "馬番"
-                type: integer
-                example:  5
-              Horse:
-                $ref: '#/components/schemas/Horse'
-              weight:
-                description: "斤量"
-                type: number
-                example:  57
-              jockey:
-                description: "騎手"
-                type: string
-                example:  "福永祐一"
-              time:
-                type: string
-                example:  "2:24.1"
-              difference:
-                type: string
-                example:  "-"
-              pass:
-                type: string
-                example:  "3-3-5-4"
-              last3F:
-                type: number
-                example:  34.0
-              odds:
-                description:  "オッズ"
-                type: number
-                example:  1.4
-              order of Favarite Number:
-                description:  "人気"
-                type: integer
-                example:  1
-              horse weight:
-                description:  "馬体重"
-                type: string
-                example: "460(-2)"
-              
-          
         
+    HorseRaceReults:
+      type: object
+      properties:
+        raceId:
+          type: string
+          example:  202005021211
+        horseID:
+          type: string
+          example:  "2017101835"
+          # $ref: '#/components/schemas/Horse'
+        arrival:
+          type: integer
+          example:  1
+        bracket Number:
+          description:  "枠番"
+          type: integer
+          example : 3
+        horse number:
+          description:  "馬番"
+          type: integer
+          example:  5
+        weight:
+          description: "斤量"
+          type: number
+          example:  57
+        jockey:
+          description: "騎手"
+          type: string
+          example:  "福永祐一"
+        time:
+          type: string
+          example:  "2:24.1"
+        difference:
+          type: string
+          example:  "-"
+        pass:
+          type: string
+          example:  "3-3-5-4"
+        last3F:
+          type: number
+          example:  34.0
+        odds:
+          description:  "オッズ"
+          type: number
+          example:  1.4
+        order of Favarite Number:
+          description:  "人気"
+          type: integer
+          example:  1
+        horse weight:
+          description:  "馬体重"
+          type: string
+          example: "460(-2)"
+            
         
-    
-    
+      
+      
+  
   

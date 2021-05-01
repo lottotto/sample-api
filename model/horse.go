@@ -5,11 +5,13 @@ type Horse struct {
 
 	Name string `json:"name,omitempty"`
 
-	Age int32 `json:"age,omitempty"`
-
-	Sex string `json:"sex,omitempty"`
-
 	Trainer string `json:"trainer,omitempty"`
 
 	Owner string `json:"owner,omitempty"`
+
+	Breeder string `json:"breeder,omitempty"`
+
+	Sire string `json:"sire,omitempty"`
+	// 母父
+	Broodmare string `json:"broodmare,omitempty"`
 }
